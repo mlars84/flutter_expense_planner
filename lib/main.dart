@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import './transaction.dart';
+import 'models/transaction.dart';
 import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,11 +21,11 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   final List<Transaction> transactions = [
     Transaction(
-        id: Uuid(), title: 'New shoes', amount: 35.00, date: DateTime.now()),
+        id: Uuid(), title: 'New shoes', amount: 35.15, date: DateTime.now()),
     Transaction(
-        id: Uuid(), title: 'Shirt', amount: 40.00, date: DateTime.now()),
+        id: Uuid(), title: 'Shirt', amount: 40.63, date: DateTime.now()),
     Transaction(
-        id: Uuid(), title: 'Pants', amount: 80.00, date: DateTime.now()),
+        id: Uuid(), title: 'Pants', amount: 80.86, date: DateTime.now()),
     Transaction(id: Uuid(), title: 'Beer', amount: 14.99, date: DateTime.now())
   ];
 
@@ -33,7 +34,6 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: Text('Expense Planner')),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Container(
               width: double.infinity,
@@ -43,12 +43,19 @@ class MyHomePage extends StatelessWidget {
                 elevation: 5,
               ),
             ),
+            Card(
+              child: Column(
+                children: <Widget>[
+                  TextField(),
+                  TextField()
+                ],
+              )
+            ),
             Column(
                 children: transactions.map((transaction) {
               return Card(
                 color: Colors.grey[100],
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.symmetric(
@@ -56,36 +63,38 @@ class MyHomePage extends StatelessWidget {
                         horizontal: 15
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.purple, width: 2) 
+                        border: Border.all(color: Colors.redAccent, width: 2) 
                       ),
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        transaction.amount.toString(),
+                        '\$${transaction.amount.toString()}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
-                          color: Colors.purple
+                          color: Colors.redAccent
                         ),
                       ),
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
                           transaction.title,
-                          textAlign: TextAlign.left,
                           style: TextStyle(
+                            fontSize: 16,
                             fontWeight: FontWeight.bold
                           ),
                         ),
                         Text(
-                          transaction.date.toString(),
-                          textAlign: TextAlign.left,
+                          new DateFormat.yMMMd().format(transaction.date),
+                          style: TextStyle(
+                            color: Colors.grey
+                          ),
                         )
                       ],
                     )
                   ],
                 ),
-                elevation: 5,
               );
             }).toList())
           ],
