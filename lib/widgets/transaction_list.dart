@@ -9,6 +9,7 @@ class TransactionList extends StatelessWidget {
   }) : super(key: key);
 
   final List<Transaction> transactions;
+  
   @override
   Widget build(BuildContext context) {
     return Column(
