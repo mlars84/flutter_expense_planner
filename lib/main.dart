@@ -21,7 +21,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Expense Planner')),
       body: SingleChildScrollView(
-          child: Column(
+        child: Column(
           children: <Widget>[
             Container(
               width: double.infinity,
